@@ -1,5 +1,6 @@
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
+import 'package:famdoc_user/screens/edit_profile.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
 import 'package:famdoc_user/screens/login_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
         WelcomeScreen.id:(context)=>WelcomeScreen(),
         MapScreen.id:(context)=>MapScreen(),
         LoginScreen.id:(context)=>LoginScreen(),
-        ProfileScreen.id:(context)=>ProfileScreen(),
+        ProfilePage.id:(context)=>ProfilePage(),
+        EditProfileScreen.id:(context)=>EditProfileScreen(),
       },
     );
   }

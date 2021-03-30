@@ -1,332 +1,229 @@
+import 'package:famdoc_user/screens/edit_profile.dart';
+import 'package:famdoc_user/screens/home_screen.dart';
+import 'package:famdoc_user/user_screen_helper/profile_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:famdoc_user/constants.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   static const String id = 'profile-screen';
+
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: SafeArea(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(-1.0, 0.0),
-                end: Alignment(1.0, 0.0),
-                colors: [
-                  const Color(0xffbce6eb),
-                  const Color(0xFF26A69A),
-                ], // whitish to gray
-              ),
-            ),
-            alignment: Alignment.center, // where to position the child
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 15.0,
-                  ),
-                  decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+    return Scaffold(
+      //backgroundColor: kAppPrimaryColor,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment(-1.0, 0.0),
+            end: Alignment(1.0, 0.0),
+            colors: [const Color(0xffbce6eb), const Color(0xFF26A69A)],
+          ),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      Duration(milliseconds: 400),
+                                  transitionsBuilder: (context, animation,
+                                      animationTime, child) {
+                                    animation:
+                                    CurvedAnimation(
+                                        parent: animation,
+                                        curve: Curves.elasticInOut);
+                                    return ScaleTransition(
+                                      alignment: Alignment.topLeft,
+                                      scale: animation,
+                                      child: child,
+                                    );
+                                  },
+                                  pageBuilder:
+                                      (context, animation, animationTime) {
+                                    return HomeScreen();
+                                  },
+                                ));
+                          },
+                        ),
+                      ],
                     ),
-                    color: Color(0xFFFFFFFF),
-                    boxShadow: [
-                      new BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 20.0,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        //transform: Matrix4.translationValues(0.0, -16.0, 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                    boxShadow: [
-                                      new BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 15.0,
-                                        offset: Offset(0, 0),
-                                      ),
-                                    ],
-                                  ),
-                                  transform: Matrix4.translationValues(
-                                      0.0, -15.0, 0.0),
-                                  child: CircleAvatar(
-                                    radius: 70,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 15.0,
-                          left: 40.0,
-                          right: 40.0,
-                          bottom: 30.0,
-                        ),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Hey " +
-                                        //titleCase(name) +
-                                        ", you're looking healthy today" ??
-                                    "name not found",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 22,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          left: 20.0,
-                          right: 5.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    right: 15.0,
-                                    bottom: 15.0,
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color(0xFF26A69A),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 5,
-                                        ),
-                                        child: Text(
-                                          "",
-                                          //age ?? "",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFFFFFFFF),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Age",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    right: 15.0,
-                                    bottom: 15.0,
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color(0xFF26A69A),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 5,
-                                        ),
-                                        child: Text(
-                                          "",
-                                          //bmi ?? "",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFFFFFFFF),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "BMI",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    right: 15.0,
-                                    bottom: 15.0,
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color(0xFF26A69A),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 5,
-                                        ),
-                                        child: Text(
-                                          "",
-                                          //"$heightFeet' $heightInch\"" ?? "",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFFFFFFFF),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Height",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    right: 15.0,
-                                    bottom: 15.0,
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color(0xFF26A69A),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 5,
-                                        ),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            //text: weight ?? "",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFFFFFFFF),
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: 'lbs',
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color(0xFFFFFFFF),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Weight",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    child: AvatarImage(),
                   ),
-                ),
-                Container(
-                  height: 550,
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 5.0,
+                  SizedBox(
+                    height: 5,
                   ),
-                  child: Wrap(children: <Widget>[
-                    // Text(
-                    //   'Hello World',
-                    //   style: TextStyle(color: Colors.white),
-                    // ),
-                    Container(
-                        height: 300,
-                        child: Column(
-                          children: [TextField()],
-                        )),
-                  ]),
-                ),
-              ],
+                  //SocialIcons(),
+                  SizedBox(height: 30),
+                  Text(
+                    'chromicle',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    '@amFOSS',
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                  SizedBox(height: 15),
+                  Text(
+                    'Mobile App Developer and Open source enthusiastic',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  ProfileListItems(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppBarButton extends StatelessWidget {
+  final IconData icon;
+
+  const AppBarButton({this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 55,
+      height: 55,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: kAppPrimaryColor,
+          boxShadow: [
+            BoxShadow(
+              color: kLightBlack,
+              offset: Offset(1, 1),
+              blurRadius: 10,
+            ),
+            BoxShadow(
+              color: kWhite,
+              offset: Offset(-1, -1),
+              blurRadius: 10,
+            ),
+          ]),
+      child: Icon(
+        icon,
+        color: fCL,
+      ),
+    );
+  }
+}
+
+class AvatarImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      padding: EdgeInsets.all(2),
+      //decoration: avatarDecoration,
+      child: Container(
+        //decoration: avatarDecoration,
+        padding: EdgeInsets.all(3),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage('images/user.png'),
+              fit: BoxFit.cover,
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ProfileListItems extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView(
+        children: <Widget>[
+          GestureDetector(
+            child: ProfileListItem(
+              icon: Icons.verified_user,
+              text: 'Edit Profile',
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: Duration(milliseconds: 400),
+                    transitionsBuilder:
+                        (context, animation, animationTime, child) {
+                      CurvedAnimation(
+                          parent: animation, curve: Curves.easeInToLinear);
+                      return ScaleTransition(
+                        alignment: Alignment.centerRight,
+                        scale: animation,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (context, animation, animationTime) {
+                      return EditProfileScreen();
+                    },
+                  ));
+            },
+          ),
+          ProfileListItem(
+            icon: Icons.connect_without_contact,
+            text: 'Connections',
+          ),
+          ProfileListItem(
+            icon: Icons.attach_money,
+            text: 'Purchase History',
+          ),
+          ProfileListItem(
+            icon: Icons.question_answer_outlined,
+            text: 'Help & Support',
+          ),
+          ProfileListItem(
+            icon: Icons.settings,
+            text: 'Settings',
+          ),
+          ProfileListItem(
+            icon: Icons.logout,
+            text: 'Logout',
+            hasNavigation: false,
+          ),
+        ],
       ),
     );
   }

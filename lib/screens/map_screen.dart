@@ -150,6 +150,7 @@ class _MapScreenState extends State<MapScreen> {
                                   ? Colors.grey
                                   : Theme.of(context).primaryColor,
                               onPressed: () {
+                                locationData.savePrefs();
                                 if (loggedIn == false) {
                                   Navigator.pushReplacementNamed(
                                       context, LoginScreen.id);
@@ -160,17 +161,16 @@ class _MapScreenState extends State<MapScreen> {
                                     _auth.address = locationData
                                         .selectedAddress.addressLine;
                                   });
-                                  _auth
-                                      .updateUser(
+                                  _auth.updateUser(
                                     id: user.uid,
                                     number: user.phoneNumber,
-                                  )
-                                      .then((value) {
-                                    if (value == true) {
-                                      Navigator.pushReplacementNamed(
-                                          context, HomeScreen.id);
-                                    }
-                                  });
+                                  );
+                                  //     .then((value) {
+                                  //   if (value == true) {
+                                  //     Navigator.pushReplacementNamed(
+                                  //         context, HomeScreen.id);
+                                  //   }
+                                  // });
                                   Navigator.pushReplacementNamed(
                                       context, HomeScreen.id);
                                 }

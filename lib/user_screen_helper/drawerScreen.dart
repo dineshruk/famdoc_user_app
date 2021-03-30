@@ -43,7 +43,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 },
@@ -83,7 +83,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               );
                             },
                             pageBuilder: (context, animation, animationTime) {
-                              return ProfileScreen();
+                              return ProfilePage();
                             },
                           ));
                     },
@@ -159,7 +159,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),
@@ -191,7 +191,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),
@@ -223,7 +223,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),
@@ -255,7 +255,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),
@@ -287,7 +287,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),
@@ -319,7 +319,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfileScreen();
+                          return ProfilePage();
                         },
                       ));
                 }),

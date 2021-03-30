@@ -195,10 +195,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onPressed: () async {
                     setState(() {
                       locationData.loading = true;
-                      
                     });
-
-
 
                     await locationData.getCurrentPosition();
                     if (locationData.permissionAllowed == true) {
@@ -220,25 +217,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(30)),
                 ),
-                FlatButton(
-                  child: RichText(
-                    text: TextSpan(
-                        text: 'Already a User ?',
-                        style: TextStyle(color: Colors.grey),
-                        children: [
-                          TextSpan(
-                              text: '  Login',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(0, 179, 134, 1.0)))
-                        ]),
+                SizedBox(
+                  width: double.maxFinite,
+                  child: FlatButton(
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Already a User ?',
+                          style: TextStyle(color: Colors.grey),
+                          children: [
+                            TextSpan(
+                                text: '  Login',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(0, 179, 134, 1.0)))
+                          ]),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        auth.screen = 'Login';
+                      });
+                      showBottomSheet(context);
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      auth.screen = 'Login';
-                    });
-                    showBottomSheet(context);
-                  },
                 ),
               ])
             ],
