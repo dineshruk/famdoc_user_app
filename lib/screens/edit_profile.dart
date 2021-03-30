@@ -162,7 +162,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             Icon(Icons.edit_outlined)
                                           ],
                                         ),
-                                        Text(_address),
+                                        Text(_address == null
+                                            ? 'Address Not Set'
+                                            : _address),
                                       ],
                                     ),
                                   ),
