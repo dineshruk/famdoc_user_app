@@ -1,7 +1,10 @@
 import 'package:famdoc_user/providers/auth_provider.dart';
+import 'package:famdoc_user/providers/doctor_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
+import 'package:famdoc_user/screens/doctor_home_screen.dart';
 import 'package:famdoc_user/screens/edit_profile.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
+import 'package:famdoc_user/screens/landing_screen.dart';
 import 'package:famdoc_user/screens/login_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
 import 'package:famdoc_user/screens/profile.dart';
@@ -23,6 +26,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => LocationProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (_) => DoctorProvider(),
         ),
       ],
       child: MyApp(),
@@ -47,6 +53,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.id:(context)=>LoginScreen(),
         ProfilePage.id:(context)=>ProfilePage(),
         EditProfileScreen.id:(context)=>EditProfileScreen(),
+        LandingScreen.id:(context)=>LandingScreen(),
+        DoctorHomeScreen.id:(context)=>DoctorHomeScreen(),
       },
     );
   }

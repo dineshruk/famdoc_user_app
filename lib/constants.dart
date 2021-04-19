@@ -42,4 +42,8 @@ final kTitleTextStyle = TextStyle(
 //   ),
 // ]);
 
-
+const KDoctorCardStyle = TextStyle(
+  fontSize: 12,
+  color: Colors.grey
+  
+);

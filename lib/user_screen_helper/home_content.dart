@@ -1,10 +1,8 @@
 import 'package:famdoc_user/screens/profile.dart';
-import 'package:famdoc_user/user_screen_helper/searchBar.dart';
-import 'package:famdoc_user/widgets/image_slider.dart';
+import 'package:famdoc_user/widgets/available_doctors.dart';
+import 'package:famdoc_user/widgets/top_near_doctors.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeContent extends StatefulWidget {
   @override
@@ -44,7 +42,7 @@ class _HomeContentState extends State<HomeContent> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 1.0,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,7 +50,7 @@ class _HomeContentState extends State<HomeContent> {
                           ? IconButton(
                               icon: Icon(
                                 Icons.arrow_back_ios,
-                                size: 40,
+                                size: 30,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -75,10 +73,8 @@ class _HomeContentState extends State<HomeContent> {
                                   isDrawerOpen = true;
                                 });
                               }),
-                      AnimationSearchBar(
-                        width: 280,
-                        autoFocus: true,
-                      ),
+                      IconButton(icon: Icon(Icons.search_outlined),
+                       onPressed: (){})
                     ],
                   ),
                 ),
@@ -98,15 +94,15 @@ class _HomeContentState extends State<HomeContent> {
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        ImageSlider(),
-                        // loadUserInfo(),
+                        //ImageSlider(),
+                        
 
                         Container(
-                          height: 700,
+                          height: 1000,
                           margin: const EdgeInsets.only(
                             top: 38.0,
-                            right: 5,
-                            left: 5,
+                            right: 2,
+                            left: 2,
                           ),
                           decoration: new BoxDecoration(
                             borderRadius: BorderRadius.only(
@@ -126,16 +122,16 @@ class _HomeContentState extends State<HomeContent> {
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
                                 height: 95,
                                 width: 800,
                                 child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 10.0,
-                                  ),
+                                  margin:
+                                      const EdgeInsets.only(left: 0, right: 0),
                                   transform: Matrix4.translationValues(
-                                      0.0, -30.0, 0.0),
+                                      0.0, -20.0, 0.0),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -161,7 +157,7 @@ class _HomeContentState extends State<HomeContent> {
                                               top: 10.0,
                                             ),
                                             child: Text(
-                                              ' Predict',
+                                              ' Prediction',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -279,6 +275,35 @@ class _HomeContentState extends State<HomeContent> {
                                   ),
                                 ),
                               ),
+                              Container(
+                                height: 210,
+                                color: Colors.transparent,
+                                child: NearDoctors(),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 18.0, right: 28, bottom: 18),
+                                  child: SingleChildScrollView(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      padding: EdgeInsets.all(7.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            height: MediaQuery.of(context).size.height,
+                                            padding: EdgeInsets.all(10.0),
+                                            color:
+                                                Colors.white10.withOpacity(0.7),
+                                            child: AvailableDoctors(),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -286,6 +311,7 @@ class _HomeContentState extends State<HomeContent> {
                     ),
                   ),
                 ),
+
                 // Container(
                 //     height: 710,
                 //     margin: const EdgeInsets.only(
@@ -300,7 +326,8 @@ class _HomeContentState extends State<HomeContent> {
                 //           bottomRight: Radius.circular(25),
                 //           bottomLeft: Radius.circular(25),
                 //         ),
-                //         color: Colors.transparent)),
+
+                //         color: Colors.transparent),),
               ],
             ),
           ),

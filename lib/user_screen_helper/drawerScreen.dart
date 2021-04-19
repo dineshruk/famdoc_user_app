@@ -1,9 +1,10 @@
 import 'package:famdoc_user/screens/home_screen.dart';
+import 'package:famdoc_user/screens/map_screen.dart';
 import 'package:famdoc_user/screens/profile.dart';
 import 'package:famdoc_user/screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
+      padding: EdgeInsets.only(top: 40, bottom: 50, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -346,7 +347,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, WelcomeScreen.id);
+                  Navigator.pushReplacementNamed(context, MapScreen.id);
                 },
               ),
               SizedBox(
@@ -357,9 +358,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 height: 20,
                 color: Colors.white,
               ),
-              SizedBox(
-                width: 5,
-              ),
+             
               
             ],
           ),

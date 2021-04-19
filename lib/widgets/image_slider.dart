@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+
 import 'package:flutter/material.dart';
 
 class ImageSlider extends StatefulWidget {
@@ -34,15 +34,15 @@ class _ImageSliderState extends State<ImageSlider> {
     return Container(
       //color: Colors.white,
       decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment(-1.0, 0.0),
-                      end: Alignment(1.0, 0.0),
-                      colors: [
-                        const Color(0xffbce6eb),
-                        const Color(0xFF26A69A)
-                      ], // whitish to gray
-                    ),
-                  ),
+        gradient: LinearGradient(
+          begin: Alignment(-1.0, 0.0),
+          end: Alignment(1.0, 0.0),
+          colors: [
+            const Color(0xffbce6eb),
+            const Color(0xFF26A69A)
+          ], // whitish to gray
+        ),
+      ),
       child: Column(
         children: [
           if (_dataLength != 0)
@@ -54,35 +54,31 @@ class _ImageSliderState extends State<ImageSlider> {
                         child: CircularProgressIndicator(),
                       )
                     : Padding(
-                        padding: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 1),
                         child: CarouselSlider.builder(
                           options: CarouselOptions(
-                                viewportFraction: 1,
-                                initialPage: 0,
-                                autoPlay: true,
-                                height: 150,
-                                onPageChanged:
-                                    (int i, carouselPageChangedReason) {
-                                  setState(() {
-                                    _index = i;
-                                  }
-                                  );
-                                }
-                                ),
-                            itemCount: snapShot.data.length,
-                            itemBuilder: (BuildContext context, int index, int) {
-                              DocumentSnapshot sliderImage =
-                                  snapShot.data[index];
-                              Map getImage = sliderImage.data();
-                              return SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Image.network(
-                                    getImage['image'],
-                                    fit: BoxFit.fill,
-                                  ));
-                            },
-                            
-                                ),
+                              viewportFraction: 1,
+                              initialPage: 0,
+                              autoPlay: true,
+                              height: 180,
+                              onPageChanged:
+                                  (int i, carouselPageChangedReason) {
+                                setState(() {
+                                  _index = i;
+                                });
+                              }),
+                          itemCount: snapShot.data.length,
+                          itemBuilder: (BuildContext context, int index, int) {
+                            DocumentSnapshot sliderImage = snapShot.data[index];
+                            Map getImage = sliderImage.data();
+                            return SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Image.network(
+                                  getImage['image'],
+                                  fit: BoxFit.fill,
+                                ));
+                          },
+                        ),
                       );
               },
             ),

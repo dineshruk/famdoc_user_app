@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:famdoc_user/models/user_model.dart';
+
 
 class UserServices {
   String collection = 'users';
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+ 
 
   Future<void> createUserData(Map<String, dynamic> values) async {
     String id = values['id'];

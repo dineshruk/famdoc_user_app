@@ -1,10 +1,8 @@
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
-import 'package:famdoc_user/screens/home_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
 import 'package:famdoc_user/screens/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -197,6 +195,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                       ),
+                                      
                                     ],
                                   )
                                 ],

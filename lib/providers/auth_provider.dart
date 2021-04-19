@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
-import 'package:famdoc_user/screens/map_screen.dart';
+import 'package:famdoc_user/screens/landing_screen.dart';
 import 'package:famdoc_user/services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +19,7 @@ class AuthProvider with ChangeNotifier {
   double latitude;
   double longitude;
   String address;
+  String location;
 
   Future<void> verifyPhone({
     BuildContext context,
@@ -119,8 +119,12 @@ class AuthProvider with ChangeNotifier {
                             if (this.screen == 'Login') {
                               //need to check user data lready exist o not
                               //if exists data will update or create new data
+                              if (snapShot.data()['address'] != null) {
+                                Navigator.pushReplacementNamed(
+                                    context, HomeScreen.id);
+                              }
                               Navigator.pushReplacementNamed(
-                                  context, HomeScreen.id);
+                                  context, LandingScreen.id);
                             } else {
                               updateUser(
                                   id: user.uid, number: user.phoneNumber);
@@ -130,7 +134,7 @@ class AuthProvider with ChangeNotifier {
                           } else {
                             _createUser(id: user.uid, number: user.phoneNumber);
                             Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
+                                context, LandingScreen.id);
                           }
                         });
                       } else {
@@ -171,7 +175,8 @@ class AuthProvider with ChangeNotifier {
       'number': number,
       'latitude': this.latitude,
       'longitude': this.longitude,
-      'address': this.address
+      'address': this.address,
+      'location': this.location
     });
     this.loading = false;
     notifyListeners();
@@ -180,14 +185,15 @@ class AuthProvider with ChangeNotifier {
   void updateUser({
     String id,
     String number,
-  }) async{
+  }) async {
     try {
       _userServices.updateUserData({
         'id': id,
         'number': number,
         'latitude': this.latitude,
         'longitude': this.longitude,
-        'address': this.address
+        'address': this.address,
+        'location': this.location
       });
       this.loading = false;
       notifyListeners();

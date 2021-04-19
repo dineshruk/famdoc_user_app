@@ -14,7 +14,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  LatLng currentLocation;
+  LatLng currentLocation = LatLng(37.421632, 122.084664);
   GoogleMapController _mapController;
   bool _locating = false;
   bool loggedIn = false;
@@ -120,7 +120,10 @@ class _MapScreenState extends State<MapScreen> {
                               child: Text(
                                 _locating
                                     ? 'Locating...'
-                                    : locationData.selectedAddress.featureName,
+                                    : locationData.selectedAddress == null
+                                        ? 'Locating...'
+                                        : locationData
+                                            .selectedAddress.featureName,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor,
@@ -134,7 +137,9 @@ class _MapScreenState extends State<MapScreen> {
                             const EdgeInsets.only(left: 20, right: 20, top: 5),
                         child: Text(_locating
                             ? ''
-                            : locationData.selectedAddress.addressLine),
+                            : locationData.selectedAddress == null
+                                ? ''
+                                : locationData.selectedAddress.addressLine),
                       ),
                       SizedBox(
                         height: 30,
@@ -160,6 +165,8 @@ class _MapScreenState extends State<MapScreen> {
                                     _auth.longitude = locationData.longitude;
                                     _auth.address = locationData
                                         .selectedAddress.addressLine;
+                                    _auth.location = locationData
+                                        .selectedAddress.featureName;
                                   });
                                   _auth.updateUser(
                                     id: user.uid,
