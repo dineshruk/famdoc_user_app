@@ -12,33 +12,22 @@ class NearDoctors extends StatefulWidget {
 }
 
 class _NearDoctorsState extends State<NearDoctors> {
-  double latitude = 0.0;
-  double longitude = 0.0;
+  
 
-  @override
-  void didChangeDependencies() {
-    final _doctorData = Provider.of<DoctorProvider>(context);
-    _doctorData.determinePosition().then((position) {
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-      });
-    });
-    super.didChangeDependencies();
-  }
-
-   String getDistance(location) {
-      var distance = Geolocator.distanceBetween(latitude,
-          longitude, location.latitude, location.longitude);
-      var distanceInKm = distance / 1000;
-      return distanceInKm.toStringAsFixed(2);
-    }
+   
 
   @override
   Widget build(BuildContext context) {
     DoctorService _doctorService = DoctorService();
     final _doctorData = Provider.of<DoctorProvider>(context);
-   // _doctorData.getUserLocationData(context);
+   _doctorData.getUserLocationData(context);
+   
+   String getDistance(location) {
+      var distance = Geolocator.distanceBetween(_doctorData.userLatitude,
+                _doctorData.userLongitude, location.latitude, location.longitude);
+      var distanceInKm = distance / 1000;
+      return distanceInKm.toStringAsFixed(2);
+    }
    
 
     return Container(
@@ -49,8 +38,8 @@ class _NearDoctorsState extends State<NearDoctors> {
           List docDistance = [];
           for (int i = 0; i <= snapShot.data.docs.length - 1; i++) {
             var distance = Geolocator.distanceBetween(
-                latitude,
-                longitude,
+                _doctorData.userLatitude,
+                _doctorData.userLongitude,
                 snapShot.data.docs[i]['location'].latitude,
                 snapShot.data.docs[i]['location'].longitude);
             var distanceInKm = distance / 1000;
@@ -114,49 +103,49 @@ class _NearDoctorsState extends State<NearDoctors> {
                       if (double.parse(getDistance(document['location'])) <=
                           10) {
                         return InkWell(
-                          onTap: () {
-                            _doctorData.geiselectedDoctor(document,getDistance(document['location']));
-                            Navigator.pushReplacementNamed(
-                                context, DoctorHomeScreen.id);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              width: 70,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 80,
-                                    height: 80,
-                                    child: Card(
-                                        child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6),
-                                      child: Image.network(
-                                        document['imageURL'],
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )),
-                                  ),
-                                  Container(
-                                      height: 35,
-                                      child: Text(
-                                        '\Dr.${document['docName']}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                            onTap: () {
+                              _doctorData.geiselectedDoctor(document,getDistance(document['location']));
+                              Navigator.pushReplacementNamed(
+                                  context, DoctorHomeScreen.id);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 70,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 80,
+                                      height: 80,
+                                      child: Card(
+                                          child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(6),
+                                        child: Image.network(
+                                            document['imageURL'],
+                                            fit: BoxFit.cover,
                                         ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
                                       )),
-                                  Text('${getDistance(document['location'])}Km',
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 10)),
-                                ],
+                                    ),
+                                    Container(
+                                        height: 35,
+                                        child: Text(
+                                          '\Dr.${document['docName']}',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                    Text('${getDistance(document['location'])}Km',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 10)),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
+                          );
                       } else {
                         return Container();
                       }

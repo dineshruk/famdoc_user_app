@@ -1,16 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:famdoc_user/providers/doctor_provider.dart';
 import 'package:famdoc_user/services/package_services.dart';
 import 'package:famdoc_user/widgets/packages/package_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class VisitPackage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PackageServices _services = PackageServices();
+    var _doctor = Provider.of<DoctorProvider>(context);
     return FutureBuilder<QuerySnapshot>(
       future: _services.packages
           .where('published', isEqualTo: true)
           .where('collection', isEqualTo: 'Home Visit Treatment')
+          .where('doctor.docUid', isEqualTo: _doctor.doctordetails['uid'])
           .get(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -18,7 +22,10 @@ class VisitPackage extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Center(child: CircularProgressIndicator());
+        }
+         if (!snapshot.hasData) {
+          return Container();
         }
         if (snapshot.data.docs.isEmpty) {
           return Container();
@@ -33,7 +40,7 @@ class VisitPackage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 56,
+                  height: 46,
                   decoration: BoxDecoration(
                     color: Colors.teal[100],
                     borderRadius: BorderRadius.circular(12),
@@ -51,7 +58,7 @@ class VisitPackage extends StatelessWidget {
                         ],
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                        fontSize: 20,
                       ),
                     ),
                   ),

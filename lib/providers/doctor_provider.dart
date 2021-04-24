@@ -16,10 +16,23 @@ class DoctorProvider with ChangeNotifier {
   String selectedDoctorId;
   DocumentSnapshot doctordetails;
   String distance;
+  String selectedPackageCategory;
+    String selectedPackageSubCategory;
 
   geiselectedDoctor(doctorDetails, distance) {
     this.doctordetails = doctorDetails;
     this.distance = distance;
+    notifyListeners();
+  }
+
+  selectedCategory(category) {
+    this.selectedPackageCategory = category;
+    notifyListeners();
+  }
+
+
+  selectedCategorySub(subCategory) {
+    this.selectedPackageSubCategory = subCategory;
     notifyListeners();
   }
 

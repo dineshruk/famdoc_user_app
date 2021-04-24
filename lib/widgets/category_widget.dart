@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famdoc_user/providers/doctor_provider.dart';
+import 'package:famdoc_user/screens/package_list_screen.dart';
+import 'package:famdoc_user/widgets/packages/package_list_widget.dart';
 import 'package:famdoc_user/services/package_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,7 @@ class _DoctorCategoryState extends State<DoctorCategory> {
   @override
   void didChangeDependencies() {
     var _doctor = Provider.of<DoctorProvider>(context);
+    
     FirebaseFirestore.instance
         .collection('packages')
         .where('doctor.docUid', isEqualTo: _doctor.doctordetails['uid'])
@@ -31,6 +34,8 @@ class _DoctorCategoryState extends State<DoctorCategory> {
 
   @override
   Widget build(BuildContext context) {
+    var _doctorProvider = Provider.of<DoctorProvider>(context);
+    
     return FutureBuilder(
         future: _services.category.get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -40,7 +45,12 @@ class _DoctorCategoryState extends State<DoctorCategory> {
             );
           }
           if (_catList.length == 0) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: Text(
+                'Still Doctor Not Add Packages',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            );
           }
           if (!snapshot.hasData) {
             return Container();
@@ -59,7 +69,6 @@ class _DoctorCategoryState extends State<DoctorCategory> {
                         height: 60,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                    
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
                             fit: BoxFit.cover,
@@ -91,30 +100,39 @@ class _DoctorCategoryState extends State<DoctorCategory> {
                   direction: Axis.horizontal,
                   children: snapshot.data.docs.map((DocumentSnapshot document) {
                     return _catList.contains(document.data()['name'])
-                        ? Container(
-                            width: 80,
-                            height: 110,
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child:
-                                        Image.network(document.data()['image']),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 8,
-                                      right: 8,
-                                      top: 8,
+                        ? InkWell(
+                            onTap: () {
+                              _doctorProvider
+                                  .selectedCategory(document.data()['name']);
+                              _doctorProvider.selectedCategorySub(null);
+                              Navigator.pushNamed(
+                                  context, PackageListScreen.id);
+                            },
+                            child: Container(
+                              width: 80,
+                              height: 110,
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Image.network(
+                                          document.data()['image']),
                                     ),
-                                    child: Text(
-                                      document.data()['name'],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        top: 8,
+                                      ),
+                                      child: Text(
+                                        document.data()['name'],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           )

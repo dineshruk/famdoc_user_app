@@ -14,40 +14,21 @@ class AvailableDoctors extends StatefulWidget {
 }
 
 class _AvailableDoctorsState extends State<AvailableDoctors> {
-
-   double latitude = 0.0;
-  double longitude = 0.0;
-
-  @override
-  void didChangeDependencies() {
-    final _doctorData = Provider.of<DoctorProvider>(context);
-    _doctorData.determinePosition().then((position) {
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-      });
-    });
-    super.didChangeDependencies();
-  }
-
-  String getDistance(location) {
-      var distance = Geolocator.distanceBetween(latitude,
-          longitude, location.latitude, location.longitude);
-      var distanceInKm = distance / 1000;
-      return distanceInKm.toStringAsFixed(2);
-    }
-
-    DoctorService _doctorService = DoctorService();
-    PaginateRefreshedChangeListener refreshedChangeListener =
-        PaginateRefreshedChangeListener();
-
+  DoctorService _doctorService = DoctorService();
+  PaginateRefreshedChangeListener refreshedChangeListener =
+      PaginateRefreshedChangeListener();
 
   @override
   Widget build(BuildContext context) {
-    
     final _doctorData = Provider.of<DoctorProvider>(context);
     _doctorData.getUserLocationData(context);
-    
+
+    String getDistance(location) {
+      var distance = Geolocator.distanceBetween(_doctorData.userLatitude,
+          _doctorData.userLongitude, location.latitude, location.longitude);
+      var distanceInKm = distance / 1000;
+      return distanceInKm.toStringAsFixed(2);
+    }
 
     return Container(
         child: StreamBuilder<QuerySnapshot>(
@@ -59,8 +40,8 @@ class _AvailableDoctorsState extends State<AvailableDoctors> {
         List docDistance = [];
         for (int i = 0; i <= snapShot.data.docs.length - 1; i++) {
           var distance = Geolocator.distanceBetween(
-              latitude,
-              longitude,
+              _doctorData.userLatitude,
+              _doctorData.userLongitude,
               snapShot.data.docs[i]['location'].latitude,
               snapShot.data.docs[i]['location'].longitude);
           var distanceInKm = distance / 1000;

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:famdoc_user/screens/package_details_screen.dart';
+import 'package:famdoc_user/widgets/add/counter.dart';
 import 'package:flutter/material.dart';
 
 class PackageCard extends StatelessWidget {
@@ -20,16 +22,47 @@ class PackageCard extends StatelessWidget {
               Material(
                 elevation: 5,
                 borderRadius: BorderRadius.circular(15),
-                child: SizedBox(
-                  height: 140,
-                  width: 130,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.network(document.data()['packageImage'],fit: BoxFit.fill,)),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          //transitionDuration: Duration(milliseconds: 400),
+                          //transitionsBuilder:
+                              //(context, animation, animationTime, child) {
+                            // animation:
+                            // CurvedAnimation(
+                            //     parent: animation, curve: Curves.elasticInOut);
+                            // return ScaleTransition(
+                            //   alignment: Alignment.center,
+                            //   scale: animation,
+                            //   child: child,
+                            // );
+                         // },
+                          pageBuilder: (context, animation, animationTime) {
+                            return PackageDetailsScreen(
+                              document: document,
+                            );
+                          },
+                        ));
+                  },
+                  child: SizedBox(
+                    height: 140,
+                    width: 130,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Hero(
+                          tag: 'package${document.data()['packageImage']}',
+                                                  child: Image.network(
+                            document.data()['categoryName']['categoryImage'],
+                            fit: BoxFit.fill,
+                          ),
+                        )),
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 8, top:10),
+                padding: const EdgeInsets.only(left: 8, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +116,7 @@ class PackageCard extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                              '\Rs.${document.data()['price'].toStringAsFixed(0)}',
+                                '\Rs.${document.data()['price'].toStringAsFixed(0)}',
                                 style: TextStyle(
                                   color: Colors.grey[600],
                                   fontSize: 12,
@@ -102,18 +135,7 @@ class PackageCard extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Card(
-                                  color: Colors.pink[200],
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 30, right: 30, top: 7, bottom: 7),
-                                    child: Text(
-                                      'Add',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  )),
+                              CounterForCard(document),
                             ],
                           ),
                         ),
