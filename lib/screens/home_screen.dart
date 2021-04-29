@@ -1,6 +1,7 @@
 
 import 'package:famdoc_user/user_screen_helper/drawerScreen.dart';
 import 'package:famdoc_user/user_screen_helper/home_content.dart';
+import 'package:famdoc_user/widgets/add/addNotification.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,10 +10,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Stack(
         children: [
           DrawerScreen(),
           HomeContent(),
+          
         ],
       ),
     );

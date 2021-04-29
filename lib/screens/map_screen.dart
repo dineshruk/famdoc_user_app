@@ -171,6 +171,7 @@ class _MapScreenState extends State<MapScreen> {
                                   _auth.updateUser(
                                     id: user.uid,
                                     number: user.phoneNumber,
+                                    
                                   );
                                   //     .then((value) {
                                   //   if (value == true) {

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:famdoc_user/providers/addProvider.dart';
 import 'package:famdoc_user/providers/doctor_provider.dart';
 import 'package:famdoc_user/screens/doctor_home_screen.dart';
 import 'package:famdoc_user/services/doctor_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
@@ -12,29 +14,26 @@ class NearDoctors extends StatefulWidget {
 }
 
 class _NearDoctorsState extends State<NearDoctors> {
-  
-
-   
-
   @override
   Widget build(BuildContext context) {
     DoctorService _doctorService = DoctorService();
     final _doctorData = Provider.of<DoctorProvider>(context);
-   _doctorData.getUserLocationData(context);
-   
-   String getDistance(location) {
+    final _add = Provider.of<AddProvider>(context);
+    _doctorData.getUserLocationData(context);
+
+    String getDistance(location) {
       var distance = Geolocator.distanceBetween(_doctorData.userLatitude,
-                _doctorData.userLongitude, location.latitude, location.longitude);
+          _doctorData.userLongitude, location.latitude, location.longitude);
       var distanceInKm = distance / 1000;
       return distanceInKm.toStringAsFixed(2);
     }
-   
 
     return Container(
       child: StreamBuilder<QuerySnapshot>(
         stream: _doctorService.getTopNearDoctor(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapShot) {
-          if (!snapShot.hasData) return Center(child: CircularProgressIndicator());
+          if (!snapShot.hasData)
+            return Center(child: CircularProgressIndicator());
           List docDistance = [];
           for (int i = 0; i <= snapShot.data.docs.length - 1; i++) {
             var distance = Geolocator.distanceBetween(
@@ -46,6 +45,10 @@ class _NearDoctorsState extends State<NearDoctors> {
             docDistance.add(distanceInKm);
           }
           docDistance.sort();
+          
+          SchedulerBinding.instance.addPostFrameCallback((_) => setState((){
+            _add.getDistance(docDistance[0]);
+          }));
           if (docDistance[0] > 10) {
             return Container(
               child: Stack(
@@ -103,49 +106,50 @@ class _NearDoctorsState extends State<NearDoctors> {
                       if (double.parse(getDistance(document['location'])) <=
                           10) {
                         return InkWell(
-                            onTap: () {
-                              _doctorData.geiselectedDoctor(document,getDistance(document['location']));
-                              Navigator.pushReplacementNamed(
-                                  context, DoctorHomeScreen.id);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                width: 70,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: Card(
-                                          child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(6),
-                                        child: Image.network(
-                                            document['imageURL'],
-                                            fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                    ),
-                                    Container(
-                                        height: 35,
-                                        child: Text(
-                                          '\Dr.${document['docName']}',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        )),
-                                    Text('${getDistance(document['location'])}Km',
+                          onTap: () {
+                            _doctorData.geiselectedDoctor(
+                                document, getDistance(document['location']));
+                            Navigator.pushReplacementNamed(
+                                context, DoctorHomeScreen.id);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              width: 70,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 80,
+                                    height: 80,
+                                    child: Card(
+                                        child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: Image.network(
+                                        document['imageURL'],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )),
+                                  ),
+                                  Container(
+                                      height: 35,
+                                      child: Text(
+                                        '\Dr.${document['docName']}',
                                         style: TextStyle(
-                                            color: Colors.grey, fontSize: 10)),
-                                  ],
-                                ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      )),
+                                  Text('${getDistance(document['location'])}Km',
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 10)),
+                                ],
                               ),
                             ),
-                          );
+                          ),
+                        );
                       } else {
                         return Container();
                       }

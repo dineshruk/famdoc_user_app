@@ -125,14 +125,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   ),
                                   FlatButton(
                                     onPressed: () {
-                                      locationData.getCurrentPosition();
-                                      if (locationData.permissionAllowed ==
-                                          true) {
+                                      locationData.getCurrentPosition().then((value){
+                                           if (value!=null) {
                                         Navigator.pushReplacementNamed(
                                             context, MapScreen.id);
                                       } else {
                                         print('Permission not allowed');
                                       }
+                                      });
+                                   
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,

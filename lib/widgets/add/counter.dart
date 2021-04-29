@@ -110,7 +110,7 @@ class _CounterForCardState extends State<CounterForCard> {
                       });
                       return;
                     }
-                    
+
                     if (docName == null) {
                       setState(() {
                         _exists = true;
@@ -127,7 +127,6 @@ class _CounterForCardState extends State<CounterForCard> {
                       showDialog(docName);
                     }
                   });
-
                 },
                 child: Container(
                   height: 28,
@@ -162,7 +161,7 @@ class _CounterForCardState extends State<CounterForCard> {
         return CupertinoAlertDialog(
           title: Text('Replace Package List?'),
           content: Text(
-              'Your package list contains packages from Dr. $docName. Do you want to discard the selection and add packages from ${widget.document.data()['doctor']['docName']}'),
+              'Your package list contains packages from Dr. $docName. Do you want to discard the selection and add packages from Dr. ${widget.document.data()['doctor']['docName']}'),
           actions: [
             FlatButton(
               child: Text('No'),
@@ -173,13 +172,16 @@ class _CounterForCardState extends State<CounterForCard> {
             FlatButton(
               child: Text('Yes'),
               onPressed: () {
-                _add.add.doc(user.uid).delete().then((value) {
+                _add.deleteData().then((value) {
+                  _add.add.doc(user.uid).delete().then((value) {
                   _add.addToBuy(widget.document);
                   setState(() {
                     _exists = true;
                   });
                   Navigator.pop(context);
                 });
+                });
+                
               },
             ),
           ],
@@ -188,4 +190,3 @@ class _CounterForCardState extends State<CounterForCard> {
     );
   }
 }
- 

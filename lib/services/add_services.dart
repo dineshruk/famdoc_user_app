@@ -15,7 +15,9 @@ class AddServices {
     return add.doc(user.uid).collection('packages').add({
       'packageId': document.data()['packageId'],
       'packageName': document.data()['packageName'],
+      'packageImage': document.data()['packageImage'],
       'price': document.data()['price'],
+      'total': document.data()['price'],
     });
   }
 
@@ -30,12 +32,19 @@ class AddServices {
     }
   }
 
-  Future<void> deleteAdd() async {
-    final result = await add.doc(user.uid).delete();
+  Future<void> deleteData() async {
+    final result =
+        await add.doc(user.uid).collection('packages').get().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.docs) {
+        ds.reference.delete();
+      }
+    });
   }
 
   Future<String> checkDoctor() async {
     final snapshot = await add.doc(user.uid).get();
     return snapshot.exists ? snapshot.data()['docName'] : null;
   }
+
+
 }

@@ -1,14 +1,19 @@
+import 'package:famdoc_user/providers/addProvider.dart';
 import 'package:famdoc_user/providers/auth_provider.dart';
+import 'package:famdoc_user/providers/coupon_provider.dart';
 import 'package:famdoc_user/providers/doctor_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
+import 'package:famdoc_user/screens/add_list_screen.dart';
 import 'package:famdoc_user/screens/doctor_home_screen.dart';
 import 'package:famdoc_user/screens/edit_profile.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
 import 'package:famdoc_user/screens/landing_screen.dart';
 import 'package:famdoc_user/screens/login_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
+import 'package:famdoc_user/screens/new_Edit_profile.dart';
 import 'package:famdoc_user/screens/package_details_screen.dart';
 import 'package:famdoc_user/screens/package_list_screen.dart';
+import 'package:famdoc_user/screens/profile_update_screen.dart';
 import 'package:famdoc_user/widgets/packages/package_list_widget.dart';
 import 'package:famdoc_user/screens/profile.dart';
 import 'package:famdoc_user/screens/splash_screen.dart';
@@ -33,6 +38,12 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => DoctorProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (_) => AddProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (_) => CouponProvider(),
         ),
       ],
       child: MyApp(),
@@ -62,6 +73,9 @@ class MyApp extends StatelessWidget {
         PackageListWidget.id: (context) => PackageListWidget(),
         PackageListScreen.id: (context) => PackageListScreen(),
         PackageDetailsScreen.id: (context) => PackageDetailsScreen(),
+        AddScreen.id: (context) => AddScreen(),
+        NewEditProfileScreen.id : (context) => NewEditProfileScreen(),
+        UpdateProfile.id : (context) => UpdateProfile(),
       },
       builder: EasyLoading.init(),
     );

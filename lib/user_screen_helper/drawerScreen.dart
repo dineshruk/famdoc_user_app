@@ -1,10 +1,14 @@
+import 'package:famdoc_user/providers/auth_provider.dart';
+import 'package:famdoc_user/providers/location_provider.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
+import 'package:famdoc_user/screens/my_buy_packages.dart';
+import 'package:famdoc_user/screens/new_Edit_profile.dart';
 import 'package:famdoc_user/screens/profile.dart';
 import 'package:famdoc_user/screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -18,9 +22,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
   bool isDrawerOpen = true;
   @override
   Widget build(BuildContext context) {
+    var userDetails = Provider.of<AuthProvider>(context);
+    var locationData = Provider.of<LocationProvider>(context);
+    User user = FirebaseAuth.instance.currentUser;
+    userDetails.getUserDetails();
     return Container(
+      
       color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(top: 40, bottom: 50, left: 10),
+      padding: EdgeInsets.only(top: 40, bottom: 170, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -44,7 +53,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
+                          return NewEditProfileScreen();
                         },
                       ));
                 },
@@ -60,7 +69,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 children: [
                   GestureDetector(
                     child: Text(
-                      'Dinesh Rukshan',
+                      userDetails.snapshot.data()['firstName'] != null
+                          ? '${userDetails.snapshot.data()['firstName']} ${userDetails.snapshot.data()['lastName']}'
+                          : 'Update Your Name',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -84,7 +95,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               );
                             },
                             pageBuilder: (context, animation, animationTime) {
-                              return ProfilePage();
+                              return NewEditProfileScreen();
                             },
                           ));
                     },
@@ -230,161 +241,79 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 }),
             ListTile(
                 leading: Icon(
-                  Icons.how_to_reg_outlined,
+                  Icons.my_library_add,
                   color: Colors.white,
                   size: 30,
                 ),
                 title: Text(
-                  'Connected Doctors',
+                  'My Hire',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 400),
-                        transitionsBuilder:
-                            (context, animation, animationTime, child) {
-                          animation:
-                          CurvedAnimation(
-                              parent: animation, curve: Curves.elasticInOut);
-                          return ScaleTransition(
-                            alignment: Alignment.centerRight,
-                            scale: animation,
-                            child: child,
-                          );
-                        },
-                        pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
-                        },
-                      ));
+                   Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: Duration(milliseconds: 400),
+                            transitionsBuilder:
+                                (context, animation, animationTime, child) {
+                              animation:
+                              CurvedAnimation(
+                                  parent: animation,
+                                  curve: Curves.elasticInOut);
+                              return ScaleTransition(
+                                alignment: Alignment.centerRight,
+                                scale: animation,
+                                child: child,
+                              );
+                            },
+                            pageBuilder: (context, animation, animationTime) {
+                              return MyBuyPackages();
+                            },
+                          ));
                 }),
             ListTile(
                 leading: Icon(
-                  Icons.how_to_reg_outlined,
+                  Icons.location_city_outlined,
                   color: Colors.white,
                   size: 30,
                 ),
                 title: Text(
-                  'Connected Doctors',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 400),
-                        transitionsBuilder:
-                            (context, animation, animationTime, child) {
-                          animation:
-                          CurvedAnimation(
-                              parent: animation, curve: Curves.elasticInOut);
-                          return ScaleTransition(
-                            alignment: Alignment.centerRight,
-                            scale: animation,
-                            child: child,
-                          );
-                        },
-                        pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
-                        },
-                      ));
-                }),
-            ListTile(
-                leading: Icon(
-                  Icons.apps_outlined,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                title: Text(
-                  'About App',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 400),
-                        transitionsBuilder:
-                            (context, animation, animationTime, child) {
-                          animation:
-                          CurvedAnimation(
-                              parent: animation, curve: Curves.elasticInOut);
-                          return ScaleTransition(
-                            alignment: Alignment.centerRight,
-                            scale: animation,
-                            child: child,
-                          );
-                        },
-                        pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
-                        },
-                      ));
-                }),
-          ]),
-          Row(
-            children: [
-              SizedBox(
-                height: 2,
-                width: 50,
-              ),
-              GestureDetector(
-                child: Icon(Icons.location_city_outlined, color: Colors.white),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, WelcomeScreen.id);
-                },
-              ),
-              SizedBox(
-                width: 1,
-              ),
-              FlatButton(
-                child: Text(
                   'Set Location',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, MapScreen.id);
-                },
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: 3,
-                height: 20,
-                color: Colors.white,
-              ),
-             
-              
-            ],
-          ),
-          Row(children: [
-            SizedBox(
-                height: 2,
-                width: 50,
-              ),
-            FlatButton(
-                child: Text('Log Out',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => WelcomeScreen(),
-                        ));
-                  });
-                },
-              ),
-              GestureDetector(
-                child: Icon(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 400),
+                        transitionsBuilder:
+                            (context, animation, animationTime, child) {
+                          animation:
+                          CurvedAnimation(
+                              parent: animation, curve: Curves.elasticInOut);
+                          return ScaleTransition(
+                            alignment: Alignment.centerRight,
+                            scale: animation,
+                            child: child,
+                          );
+                        },
+                        pageBuilder: (context, animation, animationTime) {
+                          return MapScreen();
+                        },
+                      ));
+                }),
+            ListTile(
+                leading: Icon(
                   Icons.logout,
                   color: Colors.white,
+                  size: 30,
+                ),
+                title: Text(
+                  'Log Out',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
                   FirebaseAuth.instance.signOut().then((value) {
@@ -394,9 +323,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           builder: (context) => WelcomeScreen(),
                         ));
                   });
-                },
-              ),
-          ],)
+                }),
+          ]),
         ],
       ),
     );
