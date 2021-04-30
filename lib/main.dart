@@ -3,6 +3,7 @@ import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/coupon_provider.dart';
 import 'package:famdoc_user/providers/doctor_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
+import 'package:famdoc_user/providers/request_provider.dart';
 import 'package:famdoc_user/screens/add_list_screen.dart';
 import 'package:famdoc_user/screens/doctor_home_screen.dart';
 import 'package:famdoc_user/screens/edit_profile.dart';
@@ -44,6 +45,9 @@ void main() async {
         ),
          ChangeNotifierProvider(
           create: (_) => CouponProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RequestProvider(),
         ),
       ],
       child: MyApp(),

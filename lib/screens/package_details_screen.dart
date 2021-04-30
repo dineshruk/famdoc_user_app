@@ -4,7 +4,7 @@ import 'package:famdoc_user/widgets/packages/bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 
 class PackageDetailsScreen extends StatelessWidget {
   static const String id = 'product-detail-screen';

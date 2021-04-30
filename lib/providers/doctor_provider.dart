@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class DoctorProvider with ChangeNotifier {
-  DoctorService _doctorService = DoctorService();
+  DoctorService doctorService = DoctorService();
   UserServices _userServices = UserServices();
   User user = FirebaseAuth.instance.currentUser;
   var userLatitude = 0.0;

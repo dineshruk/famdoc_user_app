@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
 
 class AddServices {
   CollectionReference add = FirebaseFirestore.instance.collection('add');
@@ -16,6 +16,8 @@ class AddServices {
       'packageId': document.data()['packageId'],
       'packageName': document.data()['packageName'],
       'packageImage': document.data()['packageImage'],
+      'mainCategory':document.data()['categoryName']['mainCategory'],
+      'subCategory':document.data()['categoryName']['subCategory'],
       'price': document.data()['price'],
       'total': document.data()['price'],
     });

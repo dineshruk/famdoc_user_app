@@ -3,7 +3,6 @@ import 'package:famdoc_user/providers/addProvider.dart';
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/coupon_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
-import 'package:famdoc_user/screens/edit_profile.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
 import 'package:famdoc_user/screens/new_Edit_profile.dart';
 import 'package:famdoc_user/services/add_services.dart';
@@ -220,14 +219,12 @@ class _AddScreenState extends State<AddScreen> {
                                           },
                                         ));
                                   } else {
-                                   
-                                    
+                                    EasyLoading.show(status: 'Please wait...');
                                     //Confirm Payement
                                     //TODO:Payment gateway
                                     _saveRequest(
                                         _addProvider, _payable, _coupon);
-                                    EasyLoading.showSuccess(
-                                        'Your Buying Package Is Submitted');
+                                    
                                   }
                                 });
                               })
@@ -479,6 +476,7 @@ class _AddScreenState extends State<AddScreen> {
         'docName': widget.document.data()['docName'],
         'docId': widget.document.data()['docUid'],
       },
+      //'details':widget.document.data()['subCategory'],
       'timestamp': DateTime.now().toString(),
       'orderStatus': 'Requested',
       'visitingDoc': {
@@ -489,6 +487,7 @@ class _AddScreenState extends State<AddScreen> {
     }).then((value) {
       _addServices.deleteData().then((value) {
         _addServices.checkData().then((value) {
+          EasyLoading.showSuccess('Your Buying Package Is Submitted');
           Navigator.pop(context);
         });
       });

@@ -1,5 +1,4 @@
 import 'package:famdoc_user/providers/doctor_provider.dart';
-import 'package:famdoc_user/widgets/packages/package_filter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famdoc_user/services/package_services.dart';

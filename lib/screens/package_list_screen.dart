@@ -1,5 +1,4 @@
 import 'package:famdoc_user/providers/doctor_provider.dart';
-import 'package:famdoc_user/widgets/doctor_appbar.dart';
 import 'package:famdoc_user/widgets/packages/package_filter_widget.dart';
 import 'package:famdoc_user/widgets/packages/package_list_widget.dart';
 import 'package:flutter/material.dart';
