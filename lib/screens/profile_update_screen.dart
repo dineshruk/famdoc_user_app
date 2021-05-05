@@ -49,7 +49,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -63,12 +62,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
       ),
       bottomSheet: InkWell(
         onTap: () {
-          if(_formKey.currentState.validate()){
+          if (_formKey.currentState.validate()) {
             EasyLoading.show(status: 'Updating profile...');
-          updateProfile().then((value) {
-            EasyLoading.showSuccess('Updated Successfully.');
-            Navigator.pop(context);
-          });
+            updateProfile().then((value) {
+              EasyLoading.showSuccess('Updated Successfully.');
+              Navigator.pop(context);
+            });
           }
         },
         child: Container(
@@ -98,9 +97,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       child: TextFormField(
                     controller: firstName,
                     decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.green[600]),
+        
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+               
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+         
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+             
+                      ),
                       labelText: 'First Name',
                       labelStyle: TextStyle(color: Colors.grey),
-                      contentPadding: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.only(left: 8),
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -116,9 +135,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       child: TextFormField(
                     controller: lastName,
                     decoration: InputDecoration(
+                       enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.green[600]),
+             
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+              
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+            
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                    
+                      ),
                       labelText: 'Last Name',
                       labelStyle: TextStyle(color: Colors.grey),
-                      contentPadding: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.only(left: 8),
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -136,9 +175,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 controller: mobile,
                 enabled: false,
                 decoration: InputDecoration(
+                   enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.green[600]),
+                  
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+              
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                   
+                      ),
                   labelText: 'Mobile',
                   labelStyle: TextStyle(color: Colors.grey),
-                  contentPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.only(left: 8),
                 ),
               ),
               SizedBox(
@@ -147,9 +206,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
               TextFormField(
                 controller: email,
                 decoration: InputDecoration(
+                   enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.green[600]),
+                     
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                     
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.blue[900]),
+                    
+                      ),
                   labelText: 'Email',
                   labelStyle: TextStyle(color: Colors.grey),
-                  contentPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.only(left: 8),
                 ),
                 validator: (value) {
                   if (value.isEmpty) {

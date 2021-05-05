@@ -29,7 +29,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Container(
       
       color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(top: 40, bottom: 170, left: 10),
+      padding: EdgeInsets.only(top: 40, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -324,6 +324,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         ));
                   });
                 }),
+                SizedBox(height: 160,)
           ]),
         ],
       ),

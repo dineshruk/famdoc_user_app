@@ -475,6 +475,7 @@ class _AddScreenState extends State<AddScreen> {
       'doctor': {
         'docName': widget.document.data()['docName'],
         'docId': widget.document.data()['docUid'],
+     
       },
       //'details':widget.document.data()['subCategory'],
       'timestamp': DateTime.now().toString(),

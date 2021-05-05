@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter/material.dart';
 
 class UserServices {
   String collection = 'users';
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
- 
 
   Future<void> createUserData(Map<String, dynamic> values) async {
     String id = values['id'];
@@ -21,4 +20,6 @@ class UserServices {
 
     return result;
   }
+
+ 
 }

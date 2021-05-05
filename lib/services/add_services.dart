@@ -11,6 +11,7 @@ class AddServices {
       'user': user.uid,
       'docUid': document.data()['doctor']['docUid'],
       'docName': document.data()['doctor']['docName'],
+      
     });
     return add.doc(user.uid).collection('packages').add({
       'packageId': document.data()['packageId'],

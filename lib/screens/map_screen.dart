@@ -15,7 +15,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   LatLng currentLocation = LatLng(37.421632, 122.084664);
-  GoogleMapController _mapController;
+  GoogleMapController mapController;
   bool _locating = false;
   bool loggedIn = false;
   User user;
@@ -49,7 +49,7 @@ class _MapScreenState extends State<MapScreen> {
 
     void onCreated(GoogleMapController controller) {
       setState(() {
-        _mapController = controller;
+      mapController = controller;
       });
     }
 
@@ -192,7 +192,7 @@ class _MapScreenState extends State<MapScreen> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.grey,
                                       width: 1,
                                       style: BorderStyle.solid),
                                   borderRadius: BorderRadius.circular(15)),

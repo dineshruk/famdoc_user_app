@@ -5,6 +5,7 @@ import 'package:famdoc_user/services/hire_request_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -109,17 +110,14 @@ class _MyBuyPackagesState extends State<MyBuyPackages> {
                               leading: CircleAvatar(
                                 backgroundColor: Colors.white,
                                 radius: 15,
-                                child: Icon(
-                                  CupertinoIcons.square_list,
-                                  size: 30,
-                                  color: Colors.orangeAccent,
-                                ),
+                                child: _requestServices.statusIcon(document),
                               ),
                               title: Text(
                                 document.data()['orderStatus'],
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.orangeAccent,
+                                    color:
+                                        _requestServices.statusColor(document),
                                     fontWeight: FontWeight.bold),
                               ),
                               subtitle: Text(
@@ -149,6 +147,28 @@ class _MyBuyPackagesState extends State<MyBuyPackages> {
                             ),
 
                             //TODO: Visiting Doctor contact,live location
+                            if (document.data()['doctor']['docName'].length > 2)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: Container(
+                                  color: Theme.of(context).primaryColor.withOpacity(.3),
+                                  child: ListTile(
+                                    tileColor: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(.3),
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      child: Icon(CupertinoIcons.person_alt,
+                                          size: 35,
+                                          color: _requestServices.statusColor(document)),
+                                    ),
+                                    title: Text('Dr. ${document.data()['doctor']['docName']},',style: TextStyle(fontSize: 14,color: _requestServices.statusColor(document))),
+                                    subtitle: Text(_requestServices.statusComment(document),style: TextStyle(fontSize: 12,color: _requestServices.statusColor(document)),),
+                                  ),
+                                ),
+                              ),
+
                             ExpansionTile(
                               title: Text(
                                 'Request Details',

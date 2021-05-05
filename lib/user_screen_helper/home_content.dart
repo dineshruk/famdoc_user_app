@@ -1,7 +1,14 @@
+import 'package:famdoc_user/screens/desease_predict.dart';
+import 'package:famdoc_user/screens/disease/chatbot.dart';
+import 'package:famdoc_user/screens/disease/symptom_checker_screen.dart';
+import 'package:famdoc_user/screens/docIcoButton.dart';
+import 'package:famdoc_user/screens/drugExplorer.dart';
 import 'package:famdoc_user/screens/profile.dart';
 import 'package:famdoc_user/widgets/available_doctors.dart';
 import 'package:famdoc_user/widgets/top_near_doctors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class HomeContent extends StatefulWidget {
@@ -139,14 +146,19 @@ class _HomeContentState extends State<HomeContent> {
                                       Column(
                                         children: [
                                           MaterialButton(
-                                            onPressed: () => setState(() {
-                                              // initiatePhoneCall('tel:$_phone');
-                                            }),
+                                             onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChatbotPage()),
+                                              );
+                                            },
                                             color: Color(0xFF26A69A),
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
                                             child: Icon(
-                                              Icons.batch_prediction_rounded,
+                                              FontAwesomeIcons.prescription,
                                               size: 30,
                                             ),
                                             padding: EdgeInsets.all(18),
@@ -176,14 +188,14 @@ class _HomeContentState extends State<HomeContent> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ProfilePage()),
+                                                        DrugExplorerPage()),
                                               );
                                             },
                                             color: Color(0xFF26A69A),
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
                                             child: Icon(
-                                              Icons.people,
+                                             FontAwesomeIcons.pills,
                                               size: 30,
                                             ),
                                             padding: EdgeInsets.all(18),
@@ -194,7 +206,7 @@ class _HomeContentState extends State<HomeContent> {
                                               top: 10.0,
                                             ),
                                             child: Text(
-                                              'Doctor',
+                                              'Drugs',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -213,13 +225,13 @@ class _HomeContentState extends State<HomeContent> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ProfilePage()));
+                                                          DocIcoButton()));
                                             },
                                             color: Color(0xFF26A69A),
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
                                             child: Icon(
-                                              Icons.family_restroom,
+                                              FontAwesomeIcons.dochub,
                                               size: 30,
                                             ),
                                             padding: EdgeInsets.all(18),
@@ -230,7 +242,7 @@ class _HomeContentState extends State<HomeContent> {
                                               top: 10.0,
                                             ),
                                             child: Text(
-                                              'FamDoc',
+                                              'Doctors',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -249,7 +261,7 @@ class _HomeContentState extends State<HomeContent> {
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
                                             child: Icon(
-                                              Icons.favorite_border,
+                                              FontAwesomeIcons.medkit,
                                               size: 30,
                                             ),
                                             padding: EdgeInsets.all(18),
