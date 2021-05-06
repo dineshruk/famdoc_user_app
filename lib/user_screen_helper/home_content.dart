@@ -1,9 +1,6 @@
-import 'package:famdoc_user/screens/desease_predict.dart';
 import 'package:famdoc_user/screens/disease/chatbot.dart';
-import 'package:famdoc_user/screens/disease/symptom_checker_screen.dart';
 import 'package:famdoc_user/screens/docIcoButton.dart';
 import 'package:famdoc_user/screens/drugExplorer.dart';
-import 'package:famdoc_user/screens/profile.dart';
 import 'package:famdoc_user/widgets/available_doctors.dart';
 import 'package:famdoc_user/widgets/top_near_doctors.dart';
 import 'package:flutter/cupertino.dart';
@@ -105,7 +102,8 @@ class _HomeContentState extends State<HomeContent> {
                         
 
                         Container(
-                          height: 1000,
+                          
+                          height: 1500,
                           margin: const EdgeInsets.only(
                             top: 38.0,
                             right: 2,
@@ -302,14 +300,7 @@ class _HomeContentState extends State<HomeContent> {
                                       padding: EdgeInsets.all(7.0),
                                       child: Column(
                                         children: <Widget>[
-                                          Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.of(context).size.height,
-                                            padding: EdgeInsets.all(10.0),
-                                            color:
-                                                Colors.white10.withOpacity(0.7),
-                                            child: AvailableDoctors(),
-                                          )
+                                          AvailableDoctors()
                                         ],
                                       ),
                                     ),

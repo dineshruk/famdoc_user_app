@@ -27,7 +27,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
     User user = FirebaseAuth.instance.currentUser;
     userDetails.getUserDetails();
     return Container(
-      
       color: Theme.of(context).primaryColor,
       padding: EdgeInsets.only(top: 40, left: 10),
       child: Column(
@@ -101,7 +100,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     },
                   ),
                   Text(
-                    'Active Status',
+                    'Active',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   )
@@ -171,7 +170,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
+                          return NewEditProfileScreen();
                         },
                       ));
                 }),
@@ -251,26 +250,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
-                   Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            transitionDuration: Duration(milliseconds: 400),
-                            transitionsBuilder:
-                                (context, animation, animationTime, child) {
-                              animation:
-                              CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.elasticInOut);
-                              return ScaleTransition(
-                                alignment: Alignment.centerRight,
-                                scale: animation,
-                                child: child,
-                              );
-                            },
-                            pageBuilder: (context, animation, animationTime) {
-                              return MyBuyPackages();
-                            },
-                          ));
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 400),
+                        transitionsBuilder:
+                            (context, animation, animationTime, child) {
+                          animation:
+                          CurvedAnimation(
+                              parent: animation, curve: Curves.elasticInOut);
+                          return ScaleTransition(
+                            alignment: Alignment.centerRight,
+                            scale: animation,
+                            child: child,
+                          );
+                        },
+                        pageBuilder: (context, animation, animationTime) {
+                          return MyBuyPackages();
+                        },
+                      ));
                 }),
             ListTile(
                 leading: Icon(
@@ -324,7 +322,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         ));
                   });
                 }),
-                SizedBox(height: 160,)
+            SizedBox(
+              height: 140,
+            )
           ]),
         ],
       ),

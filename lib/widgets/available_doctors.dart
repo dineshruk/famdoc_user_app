@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famdoc_user/constants.dart';
 import 'package:famdoc_user/providers/doctor_provider.dart';
+import 'package:famdoc_user/screens/doctor_home_screen.dart';
 import 'package:famdoc_user/services/doctor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -113,88 +114,96 @@ class _AvailableDoctorsState extends State<AvailableDoctors> {
                   itemBuilderType: PaginateBuilderType.listView,
                   itemBuilder: (index, context, document) => Padding(
                     padding: const EdgeInsets.all(4),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            height: 110,
-                            child: Card(
-                                child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Image.network(
-                                document['imageURL'],
-                                fit: BoxFit.cover,
-                              ),
-                            )),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  document['docName'],
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                    child: InkWell(
+                       onTap: () {
+                            _doctorData.geiselectedDoctor(
+                                document, getDistance(document['location']));
+                            Navigator.pushReplacementNamed(
+                                context, DoctorHomeScreen.id);
+                          },
+                                          child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 110,
+                              child: Card(
+                                  child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: Image.network(
+                                  document['imageURL'],
+                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                document['speciality'],
-                                style: KDoctorCardStyle,
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width - 250,
-                                child: Text(
-                                  document['hospital'],
+                              )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    '\Dr.${document['docName']}',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  document['speciality'],
+                                  style: KDoctorCardStyle,
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width - 250,
+                                  child: Text(
+                                    document['hospital'],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: KDoctorCardStyle,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  '${getDistance(document['location'])}Km',
                                   overflow: TextOverflow.ellipsis,
                                   style: KDoctorCardStyle,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                '${getDistance(document['location'])}Km',
-                                overflow: TextOverflow.ellipsis,
-                                style: KDoctorCardStyle,
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star_rate,
-                                    size: 12,
-                                    color: Colors.grey,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    '3.2',
-                                    style: KDoctorCardStyle,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star_rate,
+                                      size: 12,
+                                      color: Colors.grey,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      '3.2',
+                                      style: KDoctorCardStyle,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -3,8 +3,10 @@ import 'package:famdoc_user/providers/addProvider.dart';
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/coupon_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
+import 'package:famdoc_user/providers/request_provider.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
 import 'package:famdoc_user/screens/new_Edit_profile.dart';
+import 'package:famdoc_user/screens/payment/payment_home.dart';
 import 'package:famdoc_user/services/add_services.dart';
 import 'package:famdoc_user/services/doctor_service.dart';
 import 'package:famdoc_user/services/hire_request_service.dart';
@@ -80,6 +82,7 @@ class _AddScreenState extends State<AddScreen> {
     });
 
     var _payable = _addProvider.subTotal + visitingFee - discount;
+    final requestProvider = Provider.of<RequestProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[200],
@@ -219,12 +222,29 @@ class _AddScreenState extends State<AddScreen> {
                                           },
                                         ));
                                   } else {
-                                    EasyLoading.show(status: 'Please wait...');
-                                    //Confirm Payement
-                                    //TODO:Payment gateway
-                                    _saveRequest(
-                                        _addProvider, _payable, _coupon);
-                                    
+                                    EasyLoading.dismiss();
+                                    //EasyLoading.show(status: 'Please wait...');
+                                    if (_addProvider.cod == false) {
+                                      //pay_online
+
+                                      requestProvider.totalAmount(
+                                        _payable,
+                                        widget.document.data()['docName'],
+                                        userDetails.snapshot.data()['email'],
+                                      );
+                                      Navigator.pushNamed(
+                                              context, PaymentHome.id)
+                                          .whenComplete(() {
+                                        if (requestProvider.success == true) {
+                                          _saveRequest(_addProvider, _payable,
+                                              _coupon, requestProvider);
+                                        }
+                                      });
+                                    } else {
+                                      //pay_after_visit
+                                      _saveRequest(_addProvider, _payable,
+                                          _coupon, requestProvider);
+                                    }
                                   }
                                 });
                               })
@@ -462,7 +482,8 @@ class _AddScreenState extends State<AddScreen> {
     );
   }
 
-  _saveRequest(AddProvider addProvider, payable, coupon) {
+  _saveRequest(AddProvider addProvider, payable, CouponProvider coupon,
+      RequestProvider requestProvider) {
     _requestServices.saveRequest({
       'packages': addProvider.addList,
       'userId': user.uid,
@@ -475,7 +496,6 @@ class _AddScreenState extends State<AddScreen> {
       'doctor': {
         'docName': widget.document.data()['docName'],
         'docId': widget.document.data()['docUid'],
-     
       },
       //'details':widget.document.data()['subCategory'],
       'timestamp': DateTime.now().toString(),
@@ -486,6 +506,7 @@ class _AddScreenState extends State<AddScreen> {
         'location': '',
       }
     }).then((value) {
+      requestProvider.success = false;
       _addServices.deleteData().then((value) {
         _addServices.checkData().then((value) {
           EasyLoading.showSuccess('Your Buying Package Is Submitted');

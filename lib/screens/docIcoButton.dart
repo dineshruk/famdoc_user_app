@@ -1,6 +1,9 @@
+
 import 'package:famdoc_user/widgets/available_doctors.dart';
+import 'package:famdoc_user/widgets/image_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class DocIcoButton extends StatefulWidget {
   @override
@@ -11,28 +14,34 @@ class _DocIcoButtonState extends State<DocIcoButton> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       
       appBar: AppBar(
-        title: Text('All Near By Doctors'),
-        
+        title: Text('Available Doctors '),
+        centerTitle: true,
+          actions: [
+        IconButton(icon: Icon(CupertinoIcons.search), onPressed: () {}),
+      ],
       ),
       body: SingleChildScrollView(
               child: ListView(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: [
-              Container(
-                height: 80,
-                color: Colors.grey[600],
-                child: Icon(FontAwesomeIcons.search),
-              ),
+             
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: AvailableDoctors(),
+                child: Column(
+                  children: [
+                    ImageSlider(),
+                    Container(child: AvailableDoctors()),
+                  ],
+                ),
               ),
               
               ],
             ),
-      )
+      ),
+      
     );
   }
 }

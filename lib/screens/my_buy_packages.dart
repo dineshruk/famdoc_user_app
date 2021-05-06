@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MyBuyPackages extends StatefulWidget {
+  static const String id = 'my-buying';
   @override
   _MyBuyPackagesState createState() => _MyBuyPackagesState();
 }
@@ -152,7 +153,9 @@ class _MyBuyPackagesState extends State<MyBuyPackages> {
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
                                 child: Container(
-                                  color: Theme.of(context).primaryColor.withOpacity(.3),
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(.3),
                                   child: ListTile(
                                     tileColor: Theme.of(context)
                                         .primaryColor
@@ -161,10 +164,22 @@ class _MyBuyPackagesState extends State<MyBuyPackages> {
                                       backgroundColor: Colors.transparent,
                                       child: Icon(CupertinoIcons.person_alt,
                                           size: 35,
-                                          color: _requestServices.statusColor(document)),
+                                          color: _requestServices
+                                              .statusColor(document)),
                                     ),
-                                    title: Text('Dr. ${document.data()['doctor']['docName']},',style: TextStyle(fontSize: 14,color: _requestServices.statusColor(document))),
-                                    subtitle: Text(_requestServices.statusComment(document),style: TextStyle(fontSize: 12,color: _requestServices.statusColor(document)),),
+                                    title: Text(
+                                        'Dr. ${document.data()['doctor']['docName']},',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: _requestServices
+                                                .statusColor(document))),
+                                    subtitle: Text(
+                                      _requestServices.statusComment(document),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: _requestServices
+                                              .statusColor(document)),
+                                    ),
                                   ),
                                 ),
                               ),

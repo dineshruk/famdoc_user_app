@@ -92,7 +92,7 @@ class _NearDoctorsState extends State<NearDoctors> {
                       SizedBox(
                           height: 30, child: Image.asset('images/like.gif')),
                       Text(
-                        'Top Rated Doctors',
+                        'Top Nearby Available Doctors',
                         style: TextStyle(fontWeight: FontWeight.w900),
                       )
                     ],

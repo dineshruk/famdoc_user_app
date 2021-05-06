@@ -1,6 +1,8 @@
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
+import 'package:famdoc_user/screens/my_buy_packages.dart';
+import 'package:famdoc_user/screens/payment/credit_card_list.dart';
 import 'package:famdoc_user/screens/profile_update_screen.dart';
 import 'package:famdoc_user/screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,7 +30,8 @@ class NewEditProfileScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: SingleChildScrollView(
+      body://userDetails.snapshot == null ? Center(child: CircularProgressIndicator()) :
+      SingleChildScrollView(
           physics: ScrollPhysics(),
           child: Column(
             children: [
@@ -52,8 +55,9 @@ class NewEditProfileScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: 40,
                                 backgroundColor: Theme.of(context).primaryColor,
-                                child: Text(
-                                  'D',
+                                child://userDetails.snapshot.data()['firstName'] == null ? Center(child: CircularProgressIndicator()): 
+                                Text('D',
+                                 // userDetails.snapshot.data()['firstName'][0],
                                   style: TextStyle(fontSize: 50),
                                 ),
                               ),
@@ -194,16 +198,25 @@ class NewEditProfileScreen extends StatelessWidget {
               ),
               Divider(),
               ListTile(
+                 onTap: (){
+                   Navigator.pushReplacementNamed(
+                                context, MyBuyPackages.id);
+                },
                 leading: Icon(Icons.history),
                 title: Text('My Hirings'),
                 horizontalTitleGap: 2,
               ),
               Divider(),
               ListTile(
-                leading: Icon(Icons.comment_outlined),
-                title: Text('My Ratings & Reviews'),
+                onTap: (){
+                   Navigator.pushReplacementNamed(
+                                context, CreditCardList.id);
+                },
+                leading: Icon(Icons.credit_card),
+                title: Text('Manage Credit Cards'),
                 horizontalTitleGap: 2,
               ),
+              
               Divider(),
               ListTile(
                 leading: Icon(Icons.notifications_none),

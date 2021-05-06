@@ -11,9 +11,15 @@ import 'package:famdoc_user/screens/home_screen.dart';
 import 'package:famdoc_user/screens/landing_screen.dart';
 import 'package:famdoc_user/screens/login_screen.dart';
 import 'package:famdoc_user/screens/map_screen.dart';
+import 'package:famdoc_user/screens/my_buy_packages.dart';
 import 'package:famdoc_user/screens/new_Edit_profile.dart';
 import 'package:famdoc_user/screens/package_details_screen.dart';
 import 'package:famdoc_user/screens/package_list_screen.dart';
+import 'package:famdoc_user/screens/payment/create_new_card.dart';
+import 'package:famdoc_user/screens/payment/credit_card_list.dart';
+import 'package:famdoc_user/screens/payment/razorpay/razorpay_payment_screen.dart';
+import 'package:famdoc_user/screens/payment/stripe_payment/existing-cards.dart';
+import 'package:famdoc_user/screens/payment/payment_home.dart';
 import 'package:famdoc_user/screens/profile_update_screen.dart';
 import 'package:famdoc_user/widgets/packages/package_list_widget.dart';
 import 'package:famdoc_user/screens/profile.dart';
@@ -80,6 +86,12 @@ class MyApp extends StatelessWidget {
         AddScreen.id: (context) => AddScreen(),
         NewEditProfileScreen.id : (context) => NewEditProfileScreen(),
         UpdateProfile.id : (context) => UpdateProfile(),
+        ExistingCardsPage.id : (context)=> ExistingCardsPage(),
+        PaymentHome.id : (context)=> PaymentHome(),
+        MyBuyPackages.id : (context)=> MyBuyPackages(),
+        CreditCardList.id : (context)=> CreditCardList(),
+        CreateNewCreditCard.id : (context)=> CreateNewCreditCard(),
+        RazorPaymentScreen.id : (context)=> RazorPaymentScreen(),
       },
       builder: EasyLoading.init(),
     );
