@@ -1,3 +1,4 @@
+import 'package:famdoc_user/medireminder/mediMain.dart';
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/location_provider.dart';
 import 'package:famdoc_user/screens/home_screen.dart';
@@ -202,7 +203,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           );
                         },
                         pageBuilder: (context, animation, animationTime) {
-                          return ProfilePage();
+                          return MedicineReminder();
                         },
                       ));
                 }),

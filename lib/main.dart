@@ -1,3 +1,4 @@
+import 'package:famdoc_user/medireminder/src/global_bloc.dart';
 import 'package:famdoc_user/providers/addProvider.dart';
 import 'package:famdoc_user/providers/auth_provider.dart';
 import 'package:famdoc_user/providers/coupon_provider.dart';
@@ -55,6 +56,7 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => RequestProvider(),
         ),
+       
       ],
       child: MyApp(),
     ),

@@ -16,7 +16,7 @@ int _currentPage = 0;
 List<Widget> _pages = [
   Column(
     children: [
-      Expanded(child: Image.asset('images/splash_1.png')),
+      Expanded(child: Image.asset('images/splash_4.jpeg')),
       Text(
         'Set Your Location',
         style: kPageViewTextStyle,
@@ -26,7 +26,7 @@ List<Widget> _pages = [
   ),
   Column(
     children: [
-      Expanded(child: Image.asset('images/splash_2.png')),
+      Expanded(child: Image.asset('images/splash_6.jpeg')),
       Text(
         'Find Best Match Nearest Doctors For You',
         style: kPageViewTextStyle,
@@ -37,7 +37,7 @@ List<Widget> _pages = [
   ),
   Column(
     children: [
-      Expanded(child: Image.asset('images/splash_3.png')),
+      Expanded(child: Image.asset('images/splash_5.jpeg')),
       Text(
         'Connect With Your Preffered Doctors Online',
         style: kPageViewTextStyle,

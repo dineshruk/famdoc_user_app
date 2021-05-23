@@ -1,3 +1,4 @@
+import 'package:famdoc_user/medireminder/mediMain.dart';
 import 'package:famdoc_user/screens/disease/chatbot.dart';
 import 'package:famdoc_user/screens/docIcoButton.dart';
 import 'package:famdoc_user/screens/drugExplorer.dart';
@@ -6,7 +7,6 @@ import 'package:famdoc_user/widgets/top_near_doctors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 class HomeContent extends StatefulWidget {
   @override
@@ -46,7 +46,7 @@ class _HomeContentState extends State<HomeContent> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 1.0,
-                  margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -77,8 +77,8 @@ class _HomeContentState extends State<HomeContent> {
                                   isDrawerOpen = true;
                                 });
                               }),
-                      IconButton(icon: Icon(Icons.search_outlined),
-                       onPressed: (){})
+                      IconButton(
+                          icon: Icon(Icons.search_outlined), onPressed: () {})
                     ],
                   ),
                 ),
@@ -99,10 +99,8 @@ class _HomeContentState extends State<HomeContent> {
                     child: Column(
                       children: [
                         //ImageSlider(),
-                        
 
                         Container(
-                          
                           height: 1500,
                           margin: const EdgeInsets.only(
                             top: 38.0,
@@ -144,7 +142,7 @@ class _HomeContentState extends State<HomeContent> {
                                       Column(
                                         children: [
                                           MaterialButton(
-                                             onPressed: () {
+                                            onPressed: () {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -193,7 +191,7 @@ class _HomeContentState extends State<HomeContent> {
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
                                             child: Icon(
-                                             FontAwesomeIcons.pills,
+                                              FontAwesomeIcons.pills,
                                               size: 30,
                                             ),
                                             padding: EdgeInsets.all(18),
@@ -254,7 +252,13 @@ class _HomeContentState extends State<HomeContent> {
                                       Column(
                                         children: [
                                           MaterialButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MedicineReminder()));
+                                            },
                                             color: Color(0xFF26A69A),
                                             highlightColor: Color(0xFF89b9f0),
                                             textColor: Colors.white,
@@ -299,9 +303,7 @@ class _HomeContentState extends State<HomeContent> {
                                       color: Colors.transparent,
                                       padding: EdgeInsets.all(7.0),
                                       child: Column(
-                                        children: <Widget>[
-                                          AvailableDoctors()
-                                        ],
+                                        children: <Widget>[AvailableDoctors()],
                                       ),
                                     ),
                                   ),
